@@ -1,24 +1,25 @@
-package com.example.fileOrderReader;
+package com.example.file;
 
-import com.example.orderReader.OrderReader;
+import com.example.adapter.Adapter;
 import com.example.orders.Order;
-import com.example.orderParser.OrderParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileOrderReader implements OrderReader {
 
     @Override
-    public ArrayList<Order> read(String file) {
-        ArrayList<Order> orders = new ArrayList<>();
-        OrderParser orderParser = new OrderParser();
+    public List<Order> read(String file) {
+        List<Order> orders = new ArrayList<>();
+        Adapter adapter = new Adapter();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String string = "";
             while ((string = reader.readLine()) != null) {
-                Order order = orderParser.parseLine(string);
+                Order order = adapter.parse(string);
                 if (order != null) {
                     orders.add(order);
                 }

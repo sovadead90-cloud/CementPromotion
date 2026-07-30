@@ -1,4 +1,4 @@
-package com.example.orderParser;
+package com.example.parser;
 
 import com.example.orders.Order;
 
@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class OrderParser {
     public Order parseLine(String line) {
-        String[] pieces = line.split("[|]");
+        String[] pieces = line.split("[\\|]");
         if (pieces.length < 3)  {
             return null;
         }

@@ -1,24 +1,24 @@
 package com.example.com.example.util;
 
-import java.util.Map;
+import com.example.invoice.OrderInvoice;
+
+import java.util.List;
 
 public class DiscountService {
-    double priceKg;
     double startDiscount;
     double discountStep;
 
-    public DiscountService(double startDiscount, double discountStep, double priceKg) {
-        this.priceKg = priceKg;
+    public DiscountService(double startDiscount, double discountStep) {
         this.startDiscount = startDiscount;
         this.discountStep = discountStep;
     }
 
-    public void calculateDiscount(Map<String, Double> companyTonnage) {
+    public void calculateDiscount(List<OrderInvoice> invoices) {
         double currentDiscount = this.startDiscount;
-        for (Map.Entry<String, Double> entry : companyTonnage.entrySet()) {
-            String companyName = entry.getKey();
-            double totalAmount = entry.getValue();
-            double price = totalAmount * this.priceKg;
+        for (OrderInvoice invoice : invoices) {
+            String companyName = invoice.getCompanyName();
+            double totalAmount = invoice.getTotalWeight();
+            double price = invoice.getFinalAmount();
             double finalPrice = price - (price * currentDiscount / 100);
             System.out.println(companyName + " | Общий вес: " + totalAmount + " | Цена до скидки " + price +
                     " | Скидка " + currentDiscount + "% | Итоговая стоимость: " + finalPrice);
