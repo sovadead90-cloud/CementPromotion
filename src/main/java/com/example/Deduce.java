@@ -1,7 +1,8 @@
-import main.java.discountService.DiscountService;
-import main.java.orders.Order;
-import main.java.fileOrderReader.FileOrderReader;
-import main.java.ordersAggregator.OrdersAggregator;
+import com.example.com.example.util.DiscountService;
+import com.example.orderReader.OrderReader;
+import com.example.orders.Order;
+import com.example.fileOrderReader.FileOrderReader;
+import com.example.ordersAggregator.OrdersAggregator;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 public void main(String[] args) {
     ArrayList<Order> allOrders = new ArrayList<>();
-    main.java.orderReader.OrderReader reader = new FileOrderReader();
+    OrderReader reader = new FileOrderReader();
     allOrders.addAll(reader.read("discount_day.txt"));
     allOrders.sort(Comparator.comparing(Order::getOrderDate));
 

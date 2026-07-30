@@ -1,4 +1,4 @@
-package main.java.discountService;
+package com.example.com.example.util;
 
 import java.util.Map;
 

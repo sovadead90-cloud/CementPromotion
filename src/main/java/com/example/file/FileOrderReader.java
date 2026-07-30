@@ -1,14 +1,15 @@
-package main.java.fileOrderReader;
+package com.example.fileOrderReader;
 
-import main.java.orders.Order;
-import main.java.orderParser.OrderParser;
+import com.example.orderReader.OrderReader;
+import com.example.orders.Order;
+import com.example.orderParser.OrderParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class FileOrderReader implements main.java.orderReader.OrderReader {
+public class FileOrderReader implements OrderReader {
 
     @Override
     public ArrayList<Order> read(String file) {

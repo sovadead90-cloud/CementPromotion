@@ -1,4 +1,4 @@
-package main.java.orders;
+package com.example.orders;
 
 import java.time.LocalDateTime;
 

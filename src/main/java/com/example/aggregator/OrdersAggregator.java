@@ -1,6 +1,6 @@
-package main.java.ordersAggregator;
+package com.example.ordersAggregator;
 
-import main.java.orders.Order;
+import com.example.orders.Order;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
