@@ -1,0 +1,13 @@
+Recovery - 22680.0
+Power Engineer - 92576.0
+Preparatory - 51384.0
+Pyramid - 26260.0
+Fossil - 54880.0
+Mosque - 99360.0
+Atomic - 40000.0
+Electricity - 12512.0
+Industrial - 31680.0
+Carryover - 112746.0
+Resident - 22440.0
+Ancillary - 120000.0
+ Итоговая выручка 686518.0

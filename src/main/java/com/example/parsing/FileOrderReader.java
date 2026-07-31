@@ -1,7 +1,6 @@
-package com.example.file;
+package com.example.parsing;
 
-import com.example.adapter.Adapter;
-import com.example.orders.Order;
+import com.example.model.Order;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

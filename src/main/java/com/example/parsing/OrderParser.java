@@ -1,6 +1,6 @@
-package com.example.parser;
+package com.example.parsing;
 
-import com.example.orders.Order;
+import com.example.model.Order;
 
 import java.time.LocalDateTime;
 

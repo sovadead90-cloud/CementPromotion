@@ -1,4 +1,4 @@
-package com.example.orders;
+package com.example.model;
 
 import java.time.LocalDateTime;
 
