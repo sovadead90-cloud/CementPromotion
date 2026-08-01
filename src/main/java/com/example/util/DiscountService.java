@@ -1,28 +1,23 @@
-package com.example.com.example.util;
+package com.example.util;
 
 import com.example.model.OrderInvoice;
 import com.example.model.Order;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class DiscountService {
-    public List<OrderInvoice> calculateDiscount(List<Order> invoices, double startDiscount, double discountStep) {
+    public List<OrderInvoice> calculateDiscount(List<Order> invoices, double priceKg, double startDiscount, double discountStep) {
         List<OrderInvoice> readyInvoices = new ArrayList<>();
-        LinkedHashMap<String, Double> companyTonnage = new LinkedHashMap<>();
+        LinkedHashMap<String, Double> companyTonnage =
+                invoices.stream().collect(Collectors.groupingBy(Order::companyName, LinkedHashMap::new,
+                        Collectors.summingDouble((Order::orderAmount))));
 
-        for (Order order : invoices) {
-            String name = order.orderId();
-            double amount = order.orderAmount();
-            companyTonnage.merge(name, amount, Double::sum);
-        }
         double currentDiscount = startDiscount;
         for (Map.Entry<String, Double> entry : companyTonnage.entrySet()) {
             String companyName = entry.getKey();
             double totalAmount = entry.getValue();
-            double price = totalAmount * 4.0;
+            double price = totalAmount * priceKg ;
             double finalPrice = price - (price * currentDiscount / 100);
             System.out.println(companyName + " | Общий вес: " + totalAmount + " | Цена до скидки " + price +
                     " | Скидка " + currentDiscount + "% | Итоговая стоимость: " + finalPrice);

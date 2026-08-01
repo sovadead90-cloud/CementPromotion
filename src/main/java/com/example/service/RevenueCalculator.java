@@ -7,10 +7,6 @@ import java.util.List;
 
 public class RevenueCalculator {
     public double calculateTotalRevenue(List<OrderInvoice> invoices) {
-        double total = 0.0;
-        for (OrderInvoice invoice : invoices) {
-            total += invoice.finalPrice();
-        }
-        return total;
+        return invoices.stream().mapToDouble(OrderInvoice::finalPrice).sum();
     }
 }
