@@ -24,14 +24,16 @@ class OrderManagerTest {
     @InjectMocks
     private OrderManager orderManager;
     @Test
-    void testVerifyMethod()   {
+    void orderManager_manage_shouldCallAllServicesInOrder()   {
         List<Order> fakeOrders = List.of(new Order("Prestige", 9520.0, LocalDateTime.now()));
         List<OrderInvoice> fakeInvoices = List.of(new OrderInvoice("Prestige", 9520.0));
         Mockito.when(fileManager.read(Mockito.anyString(), Mockito.any())).thenReturn(fakeOrders);
         Mockito.when(discountService.calculateDiscount(Mockito.anyList(),
                 Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble())).thenReturn(fakeInvoices);
             orderManager.manage(9.0, 70.0, 3.0);
-
-        Mockito.verify(fileManager).writeReportToFile(Mockito.any(), Mockito.anyDouble());
+            Mockito.verify(fileManager).read(Mockito.anyString(), Mockito.any());
+            Mockito.verify(discountService).calculateDiscount(Mockito.anyList(),
+                    Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble());
+            Mockito.verify(fileManager).writeReportToFile(Mockito.any(), Mockito.anyDouble());
     }
 }
