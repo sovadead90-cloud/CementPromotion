@@ -10,4 +10,3 @@ Industrial - 31680.0
 Carryover - 112746.0
 Resident - 22440.0
 Ancillary - 120000.0
- Итоговая выручка 686518.0

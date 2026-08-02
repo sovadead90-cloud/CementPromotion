@@ -12,15 +12,15 @@ public class OrderManager {
     private final FileManager fileManager;
     private final DiscountService discountService;
 
-    public OrderManager(FileManager fileWriter, DiscountService discountService) throws Exception {
+    public OrderManager(FileManager fileWriter, DiscountService discountService)  {
         this.fileManager = fileWriter;
         this.discountService = discountService;
     }
 
-    public void manage(double priceKg, double startDiscount, double discountStep) throws Exception {
-        List<Order> allOrders = this.fileManager.read("discount_day_without_ext", new  OrderParserAdapter());
+    public void manage(double priceKg, double startDiscount, double discountStep)  {
+        List<Order> allOrders = fileManager.read("discount_day_without_ext", new  OrderParserAdapter());
         List<OrderInvoice> invoices = discountService.calculateDiscount(allOrders, priceKg, startDiscount, discountStep);
         double finalMoney = invoices.stream().mapToDouble(OrderInvoice::finalPrice).sum();
-        this.fileManager.writeReportToFile(invoices, finalMoney);
+        fileManager.writeReportToFile(invoices, finalMoney);
     }
 }
