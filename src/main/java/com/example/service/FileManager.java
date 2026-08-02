@@ -33,7 +33,7 @@ public class FileManager {
 
 
 
-    public void writeReportToFile(List<OrderInvoice> invoices, double totalRevenue) throws IncorrectFileFormatException {
+    public void writeReportToFile(List<OrderInvoice> invoices, double totalRevenue)  {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("total.cost.txt", true))) {
             for (OrderInvoice invoice : invoices) {
