@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class DiscountService {
     public List<OrderInvoice> calculateDiscount(List<Order> invoices, double priceKg, double startDiscount, double discountStep) {
+        invoices.sort(Comparator.comparing(Order::orderDate));
         List<OrderInvoice> readyInvoices = new ArrayList<>();
         LinkedHashMap<String, Double> companyTonnage =
                 invoices.stream().collect(Collectors.groupingBy(Order::companyName, LinkedHashMap::new,

@@ -1,38 +1,26 @@
 package com.example.manager;
 
-import com.example.service.RevenueCalculator;
+import com.example.parsing.OrderParserAdapter;
+import com.example.service.FileManager;
 import com.example.util.DiscountService;
-import com.example.parsing.FileOrderReader;
-import com.example.parsing.OrderReader;
 import com.example.model.OrderInvoice;
 import com.example.model.Order;
-import com.example.writer.InvoicesFileWriter;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class OrderManager {
-    private final OrderReader reader;
-    private final RevenueCalculator revenueCalculator;
-    private final InvoicesFileWriter fileWriter;
+    private final FileManager fileManager;
+    private final DiscountService discountService;
 
-    public OrderManager(OrderReader reader, RevenueCalculator revenueCalculator, InvoicesFileWriter fileWriter) throws Exception {
-        this.reader = reader;
-        this.revenueCalculator = revenueCalculator;
-        this.fileWriter = fileWriter;
+    public OrderManager(FileManager fileWriter, DiscountService discountService) throws Exception {
+        this.fileManager = fileWriter;
+        this.discountService = discountService;
     }
 
-    public void manage() throws Exception {
-        double priceKg = 4.0;
-        double startDiscount = 50.0;
-        double discountStep = 5.0;
-        List<Order> allOrders = new ArrayList<>();
-        allOrders.addAll(reader.read("discount_day_without_ext"));
-        allOrders.sort(Comparator.comparing(Order::orderDate));
-        DiscountService discountService = new DiscountService();
+    public void manage(double priceKg, double startDiscount, double discountStep) throws Exception {
+        List<Order> allOrders = this.fileManager.read("discount_day_without_ext", new  OrderParserAdapter());
         List<OrderInvoice> invoices = discountService.calculateDiscount(allOrders, priceKg, startDiscount, discountStep);
-        double finalMoney = this.revenueCalculator.calculateTotalRevenue(invoices);
-        this.fileWriter.writeReportToFile(invoices, finalMoney);
+        double finalMoney = invoices.stream().mapToDouble(OrderInvoice::finalPrice).sum();
+        this.fileManager.writeReportToFile(invoices, finalMoney);
     }
 }
