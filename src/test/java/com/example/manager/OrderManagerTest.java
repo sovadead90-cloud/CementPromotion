@@ -24,7 +24,7 @@ class OrderManagerTest {
     @InjectMocks
     private OrderManager orderManager;
     @Test
-    void orderManager_manage_shouldCallAllServicesInOrder()   {
+    void manage_shouldCallAllServicesInOrder()   {
         List<Order> fakeOrders = List.of(new Order("Prestige", 9520.0, LocalDateTime.now()));
         List<OrderInvoice> fakeInvoices = List.of(new OrderInvoice("Prestige", 9520.0));
         Mockito.when(fileManager.read(Mockito.anyString(), Mockito.any())).thenReturn(fakeOrders);
