@@ -34,6 +34,6 @@ class OrderManagerTest {
             Mockito.verify(fileManager).read(Mockito.anyString(), Mockito.any());
             Mockito.verify(discountService).calculateDiscount(Mockito.anyList(),
                     Mockito.anyDouble(), Mockito.anyDouble(), Mockito.anyDouble());
-            Mockito.verify(fileManager).writeReportToFile(Mockito.any(), Mockito.anyDouble());
+            Mockito.verify(fileManager).writeReportToFile(Mockito.any());
     }
 }

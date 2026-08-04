@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 
@@ -24,14 +27,18 @@ public class FileManagerTest {
         Assertions.assertEquals(9520.0, result.get(0).orderAmount());   //Проверка расчета(прочитались верно)
     }
     @Test
-    void writeReportToFile_shouldSuccessfullyWriteData() {
+    void writeReportToFile_shouldSuccessfullyWriteData() throws IOException {
         FileManager testfileManager = new FileManager();
         List<OrderInvoice> testInvoices = List.of(new OrderInvoice("Industry Company", 9520.0));
         new File("total.cost.txt").delete();
-        testfileManager.writeReportToFile(testInvoices, 9520.0);
+        testfileManager.writeReportToFile(testInvoices);
         Assertions.assertTrue(new File(System.getProperty("user.dir") +
                 File.separator + "total.cost.txt").exists());   //Проверяем, что файл есть на диске
                                                                 // и в него что-то записалось
-        new File("total.cost.txt").delete();    //Удаляем полностью при завершенной проверке
+        List<String> fileString = Files.readAllLines(Path.of(System.getProperty("user.dir")
+                + File.separator + "total.cost.txt"));
+        Assertions.assertEquals(1, fileString.size());    //Проверяем размер
+        Assertions.assertEquals("Industry Company - 9520.0", fileString.get(0));  //Проверяем правильность
+                                                                                            // записи
     }
 }

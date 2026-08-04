@@ -20,7 +20,6 @@ public class OrderManager {
     public void manage(double priceKg, double startDiscount, double discountStep)  {
         List<Order> allOrders = fileManager.read("discount_day_without_ext", new  OrderParserAdapter());
         List<OrderInvoice> invoices = discountService.calculateDiscount(allOrders, priceKg, startDiscount, discountStep);
-        double finalMoney = invoices.stream().mapToDouble(OrderInvoice::finalPrice).sum();
-        fileManager.writeReportToFile(invoices, finalMoney);
+        fileManager.writeReportToFile(invoices);
     }
 }

@@ -33,7 +33,7 @@ public class FileManager {
 
 
 
-    public void writeReportToFile(List<OrderInvoice> invoices, double totalRevenue)  {
+    public void writeReportToFile(List<OrderInvoice> invoices)  {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("total.cost.txt", true))) {
             for (OrderInvoice invoice : invoices) {
